@@ -1,0 +1,1 @@
+export { WholesaleSection } from './WholesaleSection';

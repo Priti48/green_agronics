@@ -1,17 +1,19 @@
-import dynamic from "next/dynamic";
-import { Hero } from "@/components/sections/Hero";
-import { products } from "@/data/products";
-
-const ProductGrid = dynamic(
-  () => import("@/components/sections/ProductGrid").then((m) => ({ default: m.ProductGrid })),
-  { ssr: true }
-);
+import Hero from "@/components/home/Hero";
+import FeaturedProducts from "@/components/sections/FeaturedProducts";
+import { ProductRange } from "@/components/sections/ProductRange";
+import { WholesaleSection } from "@/components/sections/WholesaleSection";
+import { Testimonials } from "@/components/sections/Testimonials";
+import TrustBar from "@/components/sections/TrustBar";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <ProductGrid products={products} />
+      <FeaturedProducts />
+      <ProductRange />
+      <WholesaleSection />
+      <Testimonials />
+      <TrustBar />
     </>
   );
 }

@@ -1,0 +1,405 @@
+@use "@/styles/variables" as *;
+
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$bg:        #0e1608;
+$lime:      #b8ea49;
+$green:     #22a058;
+$green-dk:  #1a7d44;
+
+// ── Root ─────────────────────────────────────────────────────────────────────
+.hero {
+  position: relative;
+  background: $bg;
+}
+
+// ── Flavor shelf ─────────────────────────────────────────────────────────────
+.shelf {
+  background: #080d04;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.shelfTrack {
+  display: flex;
+  gap: 0;
+  // Auto-scroll animation (CSS marquee)
+  animation: marquee 28s linear infinite;
+  width: max-content;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.shelfItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.65rem 1.1rem;
+  flex-shrink: 0;
+}
+
+.shelfImg {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+
+  @media (min-width: $breakpoint-md) {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
+.shelfLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 0.72rem;
+  }
+}
+
+// ── Main hero ─────────────────────────────────────────────────────────────────
+.main {
+  position: relative;
+  min-height: 72svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  @media (min-width: $breakpoint-lg) {
+    min-height: 82svh;
+  }
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 18, 6, 0.95) 0%,
+    rgba(10, 18, 6, 0.82) 45%,
+    rgba(10, 18, 6, 0.5)  100%
+  );
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding: 3rem 1.25rem 7rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 4.5rem 2.5rem 9rem;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+
+// ── Text column ───────────────────────────────────────────────────────────────
+.textCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.ratingPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 0.85rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  width: fit-content;
+  margin-bottom: 1.25rem;
+}
+
+.stars {
+  color: #fbbf24;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.h1 {
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 1.1rem;
+}
+
+.h1Accent {
+  color: $lime;
+}
+
+.sub {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 1rem;
+  }
+}
+
+// Trust pills
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.pill {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(184, 234, 73, 0.4);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: $lime;
+  background: rgba(184, 234, 73, 0.08);
+}
+
+// CTAs
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.78rem 1.85rem;
+  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-radius: 0.55rem;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.78rem 1.85rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-radius: 0.55rem;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+// ── Image column ─────────────────────────────────────────────────────────────
+.imageCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Hidden on mobile to keep hero compact
+  display: none;
+
+  @media (min-width: $breakpoint-lg) {
+    display: flex;
+  }
+}
+
+.welcomeBadge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65rem 1.15rem;
+  background: rgba(20, 40, 10, 0.85);
+  border: 1.5px solid $lime;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+
+  span {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+  }
+
+  strong {
+    font-size: 0.78rem;
+    color: $lime;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+}
+
+.productImg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  filter: drop-shadow(0 24px 64px rgba(0, 0, 0, 0.55));
+  position: relative;
+  z-index: 1;
+}
+
+// Floating stat chips
+.statChipLeft,
+.statChipRight {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.55rem 0.85rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.65rem;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+
+  strong {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: $lime;
+    line-height: 1;
+  }
+
+  span {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+.statChipLeft  { bottom: 2rem; left: 0; }
+.statChipRight { top: 3rem; right: 2rem; }
+
+// ── Feature benefit cards ─────────────────────────────────────────────────────
+.cards {
+  position: relative;
+  z-index: 10;
+  margin-top: -3.5rem;
+  padding-inline: 1.25rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    margin-top: -4.5rem;
+    padding-inline: 2.5rem;
+  }
+}
+
+.cardsInner {
+  max-width: 1360px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.35rem;
+  background: #ffffff;
+  border-radius: 0.85rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    filter: brightness(0) invert(1);
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+.cardTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1a2110;
+  margin: 0 0 0.18rem;
+}
+
+.cardSub {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}

@@ -5,14 +5,14 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.scss";
 
-const navLinks = [
+const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "Why Green Agronics" },
   { href: "/mission", label: "Our Mission" },
   { href: "/reviews", label: "Reviews" },
 ];
 
-const shopChildren = [
+const SHOP_ITEMS = [
   { href: "/shop?category=raw-makhana", label: "Raw Makhana" },
   { href: "/shop?category=flavored-makhana", label: "Flavored Makhana" },
   { href: "/shop?category=shilajit", label: "Shilajit" },
@@ -21,166 +21,267 @@ const shopChildren = [
   { href: "/shop?category=moringa", label: "Moringa" },
 ];
 
-export function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [shopMenuOpen, setShopMenuOpen] = useState(false);
-  const shopDropdownRef = useRef<HTMLLIElement | null>(null);
+const CART_COUNT = 3;
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-    setShopMenuOpen(false);
-  };
+function ChevronIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="10"
+      height="6"
+      viewBox="0 0 10 6"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M1 1L5 5L9 1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
+function CartIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="21" r="1" />
+      <circle cx="20" cy="21" r="1" />
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+    </svg>
+  );
+}
+
+export function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const [mobileShopOpen, setMobileShopOpen] = useState(false);
+  const shopRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        shopDropdownRef.current &&
-        !shopDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShopMenuOpen(false);
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (shopRef.current && !shopRef.current.contains(e.target as Node)) {
+        setShopOpen(false);
       }
     };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const closeAll = () => {
+    setMenuOpen(false);
+    setMobileShopOpen(false);
+  };
 
   return (
     <header className={styles.header}>
+      {/* ── Promo strip ── */}
       <div className={styles.topStrip}>
-        <div className={styles.navInner}>
-          <p className={styles.topStripText}>
-            Free Shipping + Extra 5% Off on Prepaid Order Above
-            <span className={styles.offerPill}>₹999</span>
-          </p>
-        </div>
+        <p className={styles.topStripText}>
+          Free Shipping + Extra 5% Off on Prepaid Orders Above
+          <span className={styles.pill}>₹999</span>
+        </p>
       </div>
 
-      <div className={styles.navInner}>
+      {/* ── Main nav bar ── */}
+      <div className={styles.navWrap}>
         <nav className={styles.nav} aria-label="Main navigation">
-          <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
+
+          {/* Logo */}
+          <Link href="/" className={styles.logo} onClick={closeAll}>
             <Image
-              src="/logo192.svg"
+              src="/assets/icons/logo192.svg"
               alt="Green Agronics"
-              width={42}
-              height={42}
-              className={styles.logoIcon}
+              width={46}
+              height={46}
+              className={styles.logoImg}
+              priority
             />
-            <span className={styles.logoText}>Green Agronics</span>
+            <span className={styles.logoText} aria-hidden="true">
+              <span>Green</span>
+              <span>Agronics</span>
+            </span>
           </Link>
 
-          <ul className={styles.links}>
+          {/* Desktop navigation links (hidden on mobile) */}
+          <ul className={styles.desktopLinks} role="list">
             <li
-              className={`${styles.hasChevron} ${
-                shopMenuOpen ? styles.openDropdown : ""
-              }`}
-              ref={shopDropdownRef}
+              ref={shopRef}
+              className={`${styles.shopItem} ${shopOpen ? styles.shopOpen : ""}`}
             >
               <button
                 type="button"
-                className={styles.shopTrigger}
-                onClick={() => setShopMenuOpen((prev) => !prev)}
-                aria-expanded={shopMenuOpen}
+                className={styles.shopBtn}
+                onClick={() => setShopOpen((v) => !v)}
+                aria-expanded={shopOpen}
                 aria-haspopup="menu"
               >
                 Shop
+                <ChevronIcon className={styles.shopChev} />
               </button>
+
               <ul className={styles.shopDropdown} role="menu" aria-label="Shop categories">
-                {shopChildren.map(({ href, label }) => (
+                {SHOP_ITEMS.map(({ href, label }) => (
                   <li key={href}>
-                    <Link href={href} role="menuitem" onClick={() => setShopMenuOpen(false)}>
+                    <Link href={href} role="menuitem" onClick={() => setShopOpen(false)}>
                       {label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </li>
-            {navLinks.map(({ href, label }) => (
+
+            {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
-                <Link href={href}>{label}</Link>
+                <Link href={href} className={styles.navLink}>
+                  {label}
+                </Link>
               </li>
             ))}
           </ul>
 
-          <div className={styles.rightControls}>
-            <label className={styles.searchBox} aria-label="Search">
-              <span className={styles.searchIcon} aria-hidden="true">
-                🔍
-              </span>
-              <input type="search" placeholder="Search" />
-            </label>
-
-            <Link href="/signin" className={styles.signInButton}>
-              <span className={styles.userIcon} aria-hidden="true">
-                👤
-              </span>
-              Sign In
+          {/* Right-side controls */}
+          <div className={styles.right}>
+            {/* Sign In — hidden on mobile, shown ≥ md */}
+            <Link href="/signin" className={styles.signIn}>
+              <UserIcon />
+              <span>Sign In</span>
             </Link>
 
-            <button type="button" className={styles.deliveryButton}>
-              Deliver to: <span className={styles.flag}>🇮🇳</span>
-              <span className={styles.chev} aria-hidden="true">
-                ▾
-              </span>
+            {/* Delivery country — hidden on mobile, shown ≥ md */}
+            <button
+              type="button"
+              className={styles.flagBtn}
+              aria-label="Delivery country: India"
+            >
+              🇮🇳
+              <ChevronIcon className={styles.flagChev} />
             </button>
 
-            <Link href="/cart" className={styles.cartButton} aria-label="Cart">
-              🛒
-              <span className={styles.cartBadge}>3</span>
+            {/* Cart — always visible */}
+            <Link
+              href="/cart"
+              className={styles.cartBtn}
+              aria-label={`Cart, ${CART_COUNT} items`}
+            >
+              <CartIcon />
+              {CART_COUNT > 0 && (
+                <span className={styles.cartBadge} aria-hidden="true">
+                  {CART_COUNT}
+                </span>
+              )}
             </Link>
-          </div>
 
-          <button
-            type="button"
-            className={styles.menuButton}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <span className={styles.menuIcon}>
-              <span className={mobileMenuOpen ? styles.open : ""} />
-              <span className={mobileMenuOpen ? styles.open : ""} />
-              <span className={mobileMenuOpen ? styles.open : ""} />
-            </span>
-          </button>
+            {/* Hamburger — mobile only */}
+            <button
+              type="button"
+              className={styles.hamburger}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              <span className={`${styles.bar} ${menuOpen ? styles.barTop : ""}`} />
+              <span className={`${styles.bar} ${menuOpen ? styles.barMid : ""}`} />
+              <span className={`${styles.bar} ${menuOpen ? styles.barBot : ""}`} />
+            </button>
+          </div>
         </nav>
       </div>
 
+      {/* ── Mobile slide-down menu ── */}
       <div
-        id="mobile-menu"
-        className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.open : ""}`}
-        aria-hidden={!mobileMenuOpen}
+        id="mobile-nav"
+        className={`${styles.mobileMenu} ${menuOpen ? styles.menuOpen : ""}`}
+        aria-hidden={!menuOpen}
       >
-        <ul className={styles.mobileLinks}>
-          {navLinks.map(({ href, label }) => (
+        <ul className={styles.mobileLinks} role="list">
+          {/* Shop accordion */}
+          <li className={styles.mobileShopRow}>
+            <button
+              type="button"
+              className={styles.mobileShopBtn}
+              onClick={() => setMobileShopOpen((v) => !v)}
+              aria-expanded={mobileShopOpen}
+            >
+              Shop
+              <ChevronIcon
+                className={`${styles.mobileChev} ${mobileShopOpen ? styles.mobileChevOpen : ""}`}
+              />
+            </button>
+            <ul
+              className={`${styles.mobileShopList} ${mobileShopOpen ? styles.mobileShopListOpen : ""}`}
+            >
+              {SHOP_ITEMS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} onClick={closeAll}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+
+          {NAV_LINKS.map(({ href, label }) => (
             <li key={href}>
-              <Link href={href} onClick={closeMobileMenu}>
+              <Link href={href} onClick={closeAll}>
                 {label}
               </Link>
             </li>
           ))}
-          <li>
-            <Link href="/shop" onClick={closeMobileMenu}>
-              Shop
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/signin"
-              className={styles.mobileCta}
-              onClick={closeMobileMenu}
-            >
+
+          {/* Sign In CTA */}
+          <li className={styles.mobileCtaRow}>
+            <Link href="/signin" className={styles.mobileCta} onClick={closeAll}>
               Sign In
             </Link>
           </li>
         </ul>
       </div>
 
-      {mobileMenuOpen && (
+      {/* Backdrop overlay */}
+      {menuOpen && (
         <div
           className={styles.backdrop}
-          onClick={closeMobileMenu}
+          onClick={closeAll}
           aria-hidden="true"
         />
       )}

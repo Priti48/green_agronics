@@ -1,0 +1,251 @@
+@use "@/styles/variables" as *;
+
+$green:   #22a058;
+$green-dk: #1a7d44;
+$cream:   #f7f6f1;
+
+.section {
+  background: $cream;
+  padding: 5rem 1.25rem 4rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 6rem 2.5rem 5rem;
+  }
+}
+
+.container {
+  max-width: 1360px;
+  margin-inline: auto;
+}
+
+// ── Header row ────────────────────────────────────────────────────────────────
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    margin-bottom: 3rem;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $green;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: #1a2110;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $green;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: gap 0.2s;
+
+  &:hover {
+    gap: 0.6rem;
+  }
+}
+
+// ── Grid ──────────────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (min-width: $breakpoint-md) {
+    gap: 1.5rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+// ── Card ──────────────────────────────────────────────────────────────────────
+.card {
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.25s, transform 0.25s;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+  }
+}
+
+// Image area
+.imageWrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #f0f5ea;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  padding: 0.22rem 0.6rem;
+  background: $green;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.75rem;
+  transition: transform 0.3s ease;
+
+  .card:hover & {
+    transform: scale(1.06);
+  }
+}
+
+.quickAdd {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0.65rem;
+  background: rgba(26, 125, 68, 0.92);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+  backdrop-filter: blur(4px);
+
+  .card:hover & {
+    transform: translateY(0);
+  }
+}
+
+// Info area
+.info {
+  padding: 0.9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.reviewCount {
+  font-size: 0.68rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1a2110;
+  margin: 0;
+  line-height: 1.3;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 0.95rem;
+  }
+}
+
+.weight {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin: 0;
+  font-weight: 500;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1a2110;
+}
+
+.originalPrice {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.discount {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 100px;
+}
+
+.addBtn {
+  margin-top: auto;
+  padding: 0.65rem;
+  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: 0.55rem;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
