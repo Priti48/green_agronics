@@ -1,0 +1,1 @@
+export { IndustriesServed } from './IndustriesServed';

@@ -1,0 +1,205 @@
+@use "@/styles/variables" as *;
+
+$green:    #1a7d44;
+$green-dk: #0f5230;
+$bg:       #ffffff;
+
+// ── Section ──────────────────────────────────────────────────────────────────
+.section {
+  background: $bg;
+  padding: 4.5rem 0 5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 5rem 0 6rem;
+  }
+}
+
+.inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding-inline: 2.5rem;
+  }
+}
+
+// ── Video block ───────────────────────────────────────────────────────────────
+.videoBlock {
+  margin-bottom: -7rem;
+}
+
+.videoWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: $green-dk;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 30, 15, 0.75) 0%,
+    rgba(10, 30, 15, 0.20) 45%,
+    rgba(10, 30, 15, 0.20) 100%
+  );
+  pointer-events: none;
+}
+
+// Logo
+.videoLogo {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+}
+
+.logoText {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: $green;
+  line-height: 1.25;
+  display: block;
+  letter-spacing: 0.01em;
+}
+
+// Play button
+.playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.playing {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+// Caption
+.caption {
+  position: absolute;
+  bottom: 7.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: #ffffff;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  margin: 0;
+
+  @media (min-width: $breakpoint-lg) {
+    bottom: 8.5rem;
+  }
+}
+
+// ── Feature cards ─────────────────────────────────────────────────────────────
+.cards {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.card {
+  background: #f2f2f2;
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+  }
+}
+
+// Scalloped badge icon container (matches Figma star shape)
+.iconWrap {
+  width: 5rem;
+  height: 5rem;
+  background: $green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  clip-path: polygon(
+    50% 0%,   61% 12%, 76%  5%, 80% 21%, 95% 23%, 90% 38%,
+    100% 50%, 90% 62%, 95% 77%, 80% 79%, 76% 95%, 61% 88%,
+    50% 100%, 39% 88%, 24% 95%, 20% 79%,  5% 77%, 10% 62%,
+    0%  50%,  10% 38%,  5% 23%, 20% 21%, 24%  5%, 39% 12%
+  );
+  margin-bottom: 0.25rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1a2110;
+  line-height: 1.25;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.65;
+}

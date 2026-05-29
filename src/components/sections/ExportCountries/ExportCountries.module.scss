@@ -1,0 +1,197 @@
+@use "@/styles/variables" as *;
+
+$green:    #22a058;
+$green-dk: #1a7d44;
+$brand:    #1a3d24;
+$lime:     #b8ea49;
+
+.section {
+  background: #ffffff;
+  padding: 4.5rem 1.25rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 6rem 2.5rem;
+  }
+}
+
+.container {
+  max-width: 1360px;
+  margin-inline: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $green;
+}
+
+.heading {
+  margin: 0 0 1rem;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: #1a2110;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.accent {
+  color: $green;
+}
+
+.sub {
+  max-width: 540px;
+  margin-inline: auto;
+  font-size: 0.96rem;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+// Region stats bar
+.regions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, $brand 0%, #0d2216 100%);
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2rem 2.5rem;
+  }
+}
+
+.region {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.5rem;
+
+  @media (min-width: $breakpoint-md) {
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.regionCount {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: $lime;
+}
+
+.regionLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+// Flags grid
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.countryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1.25rem 0.75rem;
+  background: #f8faf8;
+  border: 1px solid rgba(34, 160, 88, 0.1);
+  border-radius: 0.85rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 61, 36, 0.1);
+  }
+}
+
+.flag {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.countryName {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1a2110;
+}
+
+.countryCode {
+  font-size: 0.66rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+// CTA strip
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.ctaText {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a2110;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.78rem 1.85rem;
+  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border-radius: 0.55rem;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+}

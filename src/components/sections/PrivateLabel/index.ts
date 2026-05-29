@@ -1,0 +1,1 @@
+export { PrivateLabel } from './PrivateLabel';

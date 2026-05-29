@@ -1,162 +1,133 @@
 @use "@/styles/variables" as *;
 
-$dark-green: #0d2818;
-$lime:       #b8ea49;
-$green:      #22a058;
-
+// ── Section ──────────────────────────────────────────────────────────────────
 .section {
-  background: $dark-green;
-  padding: 5rem 1.25rem;
+  background: #ffffff;
+  padding: 4rem 0 4.5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 5rem 0 5.5rem;
+  }
+}
+
+.inner {
+  max-width: 1360px;
+  margin-inline: auto;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+.header {
+  text-align: center;
+  padding-inline: 1.25rem;
+  margin-bottom: 2.5rem;
 
   @media (min-width: $breakpoint-sm) {
     padding-inline: 1.75rem;
   }
 
   @media (min-width: $breakpoint-lg) {
-    padding: 6.5rem 2.5rem;
+    padding-inline: 2.5rem;
+    margin-bottom: 3rem;
   }
 }
 
-.container {
-  max-width: 1360px;
-  margin-inline: auto;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-
-  @media (min-width: $breakpoint-lg) {
-    margin-bottom: 4rem;
-  }
-}
-
-.eyebrow {
-  margin: 0 0 0.5rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $lime;
+.tagline {
+  margin: 0 auto 0.75rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .heading {
-  margin: 0 0 0.75rem;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.025em;
+  color: #111111;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.sub {
-  margin: 0 auto;
-  max-width: 38rem;
-  font-size: 0.96rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.65;
-}
-
-// ── Grid ──────────────────────────────────────────────────────────────────────
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+// ── Scroll track ─────────────────────────────────────────────────────────────
+.track {
+  display: flex;
   gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 0.5rem 1.25rem 1rem;
 
-  @media (min-width: $breakpoint-md) {
-    grid-template-columns: repeat(3, 1fr);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
     gap: 1.25rem;
   }
 
   @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1.25rem;
+    padding-inline: 2.5rem;
+    gap: 1.5rem;
+    // Show partial last card to hint scroll
+    padding-right: 1.5rem;
   }
 }
 
-// ── Card ──────────────────────────────────────────────────────────────────────
+// ── Card ─────────────────────────────────────────────────────────────────────
 .card {
+  flex: 0 0 150px;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  border-radius: 1rem;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+  gap: 0.85rem;
   text-decoration: none;
-  transition: background 0.25s, transform 0.25s, border-color 0.25s;
+  transition: transform 0.2s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(184, 234, 73, 0.35);
     transform: translateY(-4px);
+  }
+
+  @media (min-width: $breakpoint-md) {
+    flex: 0 0 168px;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    flex: 0 0 185px;
   }
 }
 
+// Image bubble
 .imgWrap {
+  position: relative;
+  width: 100%;
   aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.25rem;
-  background: radial-gradient(
-    ellipse at 60% 40%,
-    color-mix(in srgb, var(--accent) 18%, transparent),
-    transparent 70%
-  );
+  border-radius: 1.25rem;
+  background: #f2f2f2;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+
+  .card:hover & {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+  }
 }
 
 .img {
-  width: 100%;
-  height: 100%;
   object-fit: contain;
-  transition: transform 0.3s;
+  padding: 1rem;
+  transition: transform 0.3s ease;
 
   .card:hover & {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 }
 
-.cardBody {
-  padding: 0 1rem 1.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.cardTitle {
-  font-size: 0.85rem;
+// Label
+.label {
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1.25;
-
-  @media (min-width: $breakpoint-md) {
-    font-size: 0.9rem;
-  }
-}
-
-.cardDesc {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  line-height: 1.5;
-  display: none;
-
-  @media (min-width: $breakpoint-lg) {
-    display: block;
-  }
-}
-
-.shopNow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: $lime;
-  margin-top: 0.25rem;
-  transition: gap 0.2s;
-
-  .card:hover & {
-    gap: 0.5rem;
-  }
+  color: #1a2110;
+  text-align: center;
+  line-height: 1.2;
 }

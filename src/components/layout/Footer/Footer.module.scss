@@ -1,34 +1,287 @@
+@use "@/styles/variables" as *;
+
+$bg:       #0a1408;
+$border:   rgba(255, 255, 255, 0.08);
+$green:    #22a058;
+$green-dk: #1a7d44;
+$lime:     #b8ea49;
+$muted:    rgba(255, 255, 255, 0.58);
+
 .footer {
-  padding-block: 2rem;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
+  background: $bg;
 }
 
-.nav {
-  margin-bottom: 1rem;
+.top {
+  padding: 4rem 1.25rem 3rem;
+  border-bottom: 1px solid $border;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 5rem 2.5rem 4rem;
+  }
 }
 
-.links {
+.container {
+  max-width: 1360px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+    gap: 3rem;
+  }
+}
+
+// ── Brand column ─────────────────────────────────────────────────────────────
+.brandCol {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 1.25rem;
+}
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+
+  span:first-child {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #4ade80;
+  }
+
+  span:last-child {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #86efac;
+  }
+}
+
+.tagline {
+  margin: 0;
+  font-size: 0.84rem;
+  color: $muted;
+  line-height: 1.65;
+  max-width: 280px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.contactLink {
+  font-size: 0.82rem;
+  color: $muted;
+  text-decoration: none;
+  transition: color 0.18s;
+
+  &:hover {
+    color: $lime;
+  }
+}
+
+.social {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.socialLink {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+
+  &:hover {
+    background: $green;
+    color: #ffffff;
+    border-color: $green;
+  }
+}
+
+// ── Link columns ─────────────────────────────────────────────────────────────
+.linksCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.colTitle {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.linkList {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 
   a {
+    font-size: 0.85rem;
+    color: $muted;
     text-decoration: none;
-    color: #6b7280;
+    transition: color 0.18s;
 
     &:hover {
-      color: #16a34a;
+      color: $lime;
     }
+  }
+}
+
+// ── Certifications + CTA ─────────────────────────────────────────────────────
+.certCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.certChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.certChip {
+  padding: 0.25rem 0.65rem;
+  background: rgba(184, 234, 73, 0.1);
+  border: 1px solid rgba(184, 234, 73, 0.25);
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: $lime;
+  letter-spacing: 0.04em;
+}
+
+.exportCta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid $border;
+  border-radius: 0.85rem;
+
+  p {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.ctaBtn {
+  display: block;
+  padding: 0.65rem 1rem;
+  background: #25d366;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.18s;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+.ctaBtnOutline {
+  display: block;
+  padding: 0.62rem 1rem;
+  border: 1.5px solid rgba(34, 160, 88, 0.5);
+  color: $green;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+
+  &:hover {
+    border-color: $green;
+    background: rgba(34, 160, 88, 0.1);
+  }
+}
+
+// ── Bottom bar ────────────────────────────────────────────────────────────────
+.bottom {
+  padding: 1.25rem 1.25rem;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 1.25rem 2.5rem;
+  }
+}
+
+.bottomInner {
+  max-width: 1360px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
 
 .copyright {
   margin: 0;
-  font-size: 0.875rem;
-  color: #9ca3af;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.legal {
+  display: flex;
+  gap: 1.25rem;
+
+  a {
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.38);
+    text-decoration: none;
+    transition: color 0.18s;
+
+    &:hover {
+      color: $muted;
+    }
+  }
 }

@@ -1,0 +1,1 @@
+export { TrustedFAQ } from './TrustedFAQ';

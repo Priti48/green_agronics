@@ -1,13 +1,12 @@
 @use "@/styles/variables" as *;
 
-$bg:      #0a1510;
-$lime:    #b8ea49;
-$green:   #22a058;
-$green-dk: #1a7d44;
+$green:    #1a7d44;
+$green-dk: #0f5230;
 
+// ── Section ──────────────────────────────────────────────────────────────────
 .section {
-  background: $bg;
-  padding: 5rem 1.25rem;
+  background: #ffffff;
+  padding: 4rem 1.25rem 5rem;
   overflow: hidden;
 
   @media (min-width: $breakpoint-sm) {
@@ -15,12 +14,12 @@ $green-dk: #1a7d44;
   }
 
   @media (min-width: $breakpoint-lg) {
-    padding: 7rem 2.5rem;
+    padding: 5.5rem 2.5rem 6rem;
   }
 }
 
 .container {
-  max-width: 1360px;
+  max-width: 1200px;
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -28,179 +27,145 @@ $green-dk: #1a7d44;
   align-items: center;
 
   @media (min-width: $breakpoint-lg) {
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-  }
-}
-
-// ── Text column ───────────────────────────────────────────────────────────────
-.textCol {
-  display: flex;
-  flex-direction: column;
-}
-
-.eyebrow {
-  margin: 0 0 0.6rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $lime;
-}
-
-.heading {
-  margin: 0 0 1.25rem;
-  font-size: clamp(1.8rem, 4.5vw, 3rem);
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-}
-
-.headingAccent {
-  color: $lime;
-}
-
-.body {
-  margin: 0 0 2rem;
-  font-size: 0.96rem;
-  color: rgba(255, 255, 255, 0.62);
-  line-height: 1.75;
-  max-width: 36rem;
-}
-
-// Stats
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2.5rem;
-
-  @media (min-width: $breakpoint-sm) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.9rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
-
-  strong {
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: $lime;
-    line-height: 1;
-  }
-
-  span {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.04em;
-  }
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.btnPrimary {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.78rem 1.85rem;
-  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.92rem;
-  border-radius: 0.55rem;
-  text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-  }
-}
-
-.btnGhost {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.78rem 1.85rem;
-  border: 2px solid rgba(184, 234, 73, 0.3);
-  color: $lime;
-  font-weight: 700;
-  font-size: 0.92rem;
-  border-radius: 0.55rem;
-  text-decoration: none;
-  background: transparent;
-  transition: background 0.2s, border-color 0.2s;
-
-  &:hover {
-    background: rgba(184, 234, 73, 0.08);
-    border-color: rgba(184, 234, 73, 0.55);
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
   }
 }
 
 // ── Image column ─────────────────────────────────────────────────────────────
 .imageCol {
   position: relative;
-  display: flex;
-  justify-content: center;
+  padding-bottom: 5rem; // space for the floating card
 }
 
 .imgFrame {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  aspect-ratio: 4 / 3;
   border-radius: 1.5rem;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a2110;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
 }
 
 .img {
-  width: 100%;
-  height: auto;
-  display: block;
-  padding: 1rem;
+  object-fit: cover;
+  object-position: center;
 }
 
-.floatBadge {
+// Floating "What We Offer" card
+.offerCard {
   position: absolute;
-  bottom: 1.5rem;
-  left: -1rem;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 3rem);
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 1.1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
+  padding: 1.25rem 1.5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.85rem 1.25rem;
-  background: $lime;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  gap: 1.75rem;
+  align-items: flex-start;
 
   @media (min-width: $breakpoint-lg) {
-    left: -2rem;
+    left: 2rem;
+    transform: none;
+    width: auto;
+    min-width: 440px;
   }
 }
 
-.floatNum {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: #1a2110;
-  line-height: 1;
+.offerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
-.floatLabel {
-  font-size: 0.7rem;
+.offerTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #111111;
+  white-space: nowrap;
+}
+
+.enquiryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  background: $green;
+  color: #ffffff;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: #2d4a1c;
-  letter-spacing: 0.06em;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $green-dk;
+  }
+}
+
+.offerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.offerItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1a2110;
+  line-height: 1.4;
+}
+
+.bullet {
+  color: $green;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+// ── Text column ───────────────────────────────────────────────────────────────
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 900;
+  color: #111111;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.body {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.78;
+  max-width: 38rem;
+
+  strong {
+    color: #1a2110;
+    font-weight: 700;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 1rem;
+  }
 }

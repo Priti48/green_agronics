@@ -6,22 +6,21 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.scss";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "Why Green Agronics" },
-  { href: "/mission", label: "Our Mission" },
-  { href: "/reviews", label: "Reviews" },
+  { href: "/about", label: "About Us" },
+  { href: "/export", label: "Export" },
+  { href: "/certifications", label: "Certifications" },
+  { href: "/blog", label: "Events & Blog" },
+  { href: "/contact", label: "Contact" },
 ];
 
-const SHOP_ITEMS = [
-  { href: "/shop?category=raw-makhana", label: "Raw Makhana" },
-  { href: "/shop?category=flavored-makhana", label: "Flavored Makhana" },
-  { href: "/shop?category=shilajit", label: "Shilajit" },
-  { href: "/shop?category=neem", label: "Neem" },
-  { href: "/shop?category=ashwagandha", label: "Ashwagandha" },
-  { href: "/shop?category=moringa", label: "Moringa" },
+const PRODUCT_ITEMS = [
+  { href: "/products?category=raw-makhana", label: "Raw Makhana" },
+  { href: "/products?category=flavored-makhana", label: "Flavored Makhana" },
+  { href: "/products?category=shilajit", label: "Shilajit" },
+  { href: "/products?category=ashwagandha", label: "Ashwagandha" },
+  { href: "/products?category=moringa", label: "Moringa Powder" },
+  { href: "/products?category=neem", label: "Neem Products" },
 ];
-
-const CART_COUNT = 3;
 
 function ChevronIcon({ className }: { className?: string }) {
   return (
@@ -44,55 +43,24 @@ function ChevronIcon({ className }: { className?: string }) {
   );
 }
 
-function UserIcon() {
+function WhatsAppIcon() {
   return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
-function CartIcon() {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="9" cy="21" r="1" />
-      <circle cx="20" cy="21" r="1" />
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
   );
 }
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
-  const shopRef = useRef<HTMLLIElement>(null);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const productsRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (shopRef.current && !shopRef.current.contains(e.target as Node)) {
-        setShopOpen(false);
+      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
+        setProductsOpen(false);
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
@@ -108,7 +76,7 @@ export function Navbar() {
 
   const closeAll = () => {
     setMenuOpen(false);
-    setMobileShopOpen(false);
+    setMobileProductsOpen(false);
   };
 
   return (
@@ -116,8 +84,8 @@ export function Navbar() {
       {/* ── Promo strip ── */}
       <div className={styles.topStrip}>
         <p className={styles.topStripText}>
-          Free Shipping + Extra 5% Off on Prepaid Orders Above
-          <span className={styles.pill}>₹999</span>
+          🌿 Certified Organic Exporter from Bihar, India &mdash; FSSAI &bull; GMP &bull; ISO &bull; Halal Certified
+          <span className={styles.pill}>B2B Enquiries Welcome</span>
         </p>
       </div>
 
@@ -143,25 +111,26 @@ export function Navbar() {
 
           {/* Desktop navigation links (hidden on mobile) */}
           <ul className={styles.desktopLinks} role="list">
+            {/* Products dropdown */}
             <li
-              ref={shopRef}
-              className={`${styles.shopItem} ${shopOpen ? styles.shopOpen : ""}`}
+              ref={productsRef}
+              className={`${styles.shopItem} ${productsOpen ? styles.shopOpen : ""}`}
             >
               <button
                 type="button"
                 className={styles.shopBtn}
-                onClick={() => setShopOpen((v) => !v)}
-                aria-expanded={shopOpen}
+                onClick={() => setProductsOpen((v) => !v)}
+                aria-expanded={productsOpen}
                 aria-haspopup="menu"
               >
-                Shop
+                Products
                 <ChevronIcon className={styles.shopChev} />
               </button>
 
-              <ul className={styles.shopDropdown} role="menu" aria-label="Shop categories">
-                {SHOP_ITEMS.map(({ href, label }) => (
+              <ul className={styles.shopDropdown} role="menu" aria-label="Product categories">
+                {PRODUCT_ITEMS.map(({ href, label }) => (
                   <li key={href}>
-                    <Link href={href} role="menuitem" onClick={() => setShopOpen(false)}>
+                    <Link href={href} role="menuitem" onClick={() => setProductsOpen(false)}>
                       {label}
                     </Link>
                   </li>
@@ -180,34 +149,21 @@ export function Navbar() {
 
           {/* Right-side controls */}
           <div className={styles.right}>
-            {/* Sign In — hidden on mobile, shown ≥ md */}
-            <Link href="/signin" className={styles.signIn}>
-              <UserIcon />
-              <span>Sign In</span>
-            </Link>
-
-            {/* Delivery country — hidden on mobile, shown ≥ md */}
-            <button
-              type="button"
-              className={styles.flagBtn}
-              aria-label="Delivery country: India"
+            {/* WhatsApp — hidden on mobile, shown ≥ md */}
+            <a
+              href="https://wa.me/919876543210?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.waBtn}
+              aria-label="Chat on WhatsApp"
             >
-              🇮🇳
-              <ChevronIcon className={styles.flagChev} />
-            </button>
+              <WhatsAppIcon />
+              <span>WhatsApp</span>
+            </a>
 
-            {/* Cart — always visible */}
-            <Link
-              href="/cart"
-              className={styles.cartBtn}
-              aria-label={`Cart, ${CART_COUNT} items`}
-            >
-              <CartIcon />
-              {CART_COUNT > 0 && (
-                <span className={styles.cartBadge} aria-hidden="true">
-                  {CART_COUNT}
-                </span>
-              )}
+            {/* Enquiry CTA — hidden on mobile, shown ≥ md */}
+            <Link href="/contact" className={styles.enquiryBtn}>
+              Get a Quote
             </Link>
 
             {/* Hamburger — mobile only */}
@@ -234,23 +190,23 @@ export function Navbar() {
         aria-hidden={!menuOpen}
       >
         <ul className={styles.mobileLinks} role="list">
-          {/* Shop accordion */}
+          {/* Products accordion */}
           <li className={styles.mobileShopRow}>
             <button
               type="button"
               className={styles.mobileShopBtn}
-              onClick={() => setMobileShopOpen((v) => !v)}
-              aria-expanded={mobileShopOpen}
+              onClick={() => setMobileProductsOpen((v) => !v)}
+              aria-expanded={mobileProductsOpen}
             >
-              Shop
+              Products
               <ChevronIcon
-                className={`${styles.mobileChev} ${mobileShopOpen ? styles.mobileChevOpen : ""}`}
+                className={`${styles.mobileChev} ${mobileProductsOpen ? styles.mobileChevOpen : ""}`}
               />
             </button>
             <ul
-              className={`${styles.mobileShopList} ${mobileShopOpen ? styles.mobileShopListOpen : ""}`}
+              className={`${styles.mobileShopList} ${mobileProductsOpen ? styles.mobileShopListOpen : ""}`}
             >
-              {SHOP_ITEMS.map(({ href, label }) => (
+              {PRODUCT_ITEMS.map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} onClick={closeAll}>
                     {label}
@@ -268,10 +224,24 @@ export function Navbar() {
             </li>
           ))}
 
-          {/* Sign In CTA */}
+          {/* WhatsApp CTA */}
           <li className={styles.mobileCtaRow}>
-            <Link href="/signin" className={styles.mobileCta} onClick={closeAll}>
-              Sign In
+            <a
+              href="https://wa.me/919876543210?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mobileWa}
+              onClick={closeAll}
+            >
+              <WhatsAppIcon />
+              WhatsApp Us
+            </a>
+          </li>
+
+          {/* Enquiry CTA */}
+          <li className={styles.mobileCtaRow}>
+            <Link href="/contact" className={styles.mobileCta} onClick={closeAll}>
+              Get Export Quote
             </Link>
           </li>
         </ul>

@@ -91,10 +91,11 @@ $green-dk:  #1a7d44;
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(10, 18, 6, 0.95) 0%,
-    rgba(10, 18, 6, 0.82) 45%,
-    rgba(10, 18, 6, 0.5)  100%
+    105deg,
+    rgba(6, 12, 4, 0.92) 0%,
+    rgba(6, 12, 4, 0.72) 38%,
+    rgba(6, 12, 4, 0.20) 62%,
+    rgba(6, 12, 4, 0.05) 100%
   );
 }
 
@@ -121,9 +122,8 @@ $green-dk:  #1a7d44;
   gap: 2.5rem;
 
   @media (min-width: $breakpoint-lg) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 600px);
     align-items: center;
-    gap: 3rem;
   }
 }
 
@@ -133,26 +133,35 @@ $green-dk:  #1a7d44;
   flex-direction: column;
 }
 
-.ratingPill {
+.exportBadge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.38rem 0.85rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(184, 234, 73, 0.35);
   border-radius: 100px;
   backdrop-filter: blur(8px);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: $lime;
   width: fit-content;
   margin-bottom: 1.25rem;
+  letter-spacing: 0.03em;
 }
 
-.stars {
-  color: #fbbf24;
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $lime;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
 }
 
 .h1 {
@@ -166,6 +175,7 @@ $green-dk:  #1a7d44;
 
 .h1Accent {
   color: $lime;
+  font-style: italic;
 }
 
 .sub {
@@ -224,39 +234,28 @@ $green-dk:  #1a7d44;
   }
 }
 
-.btnOutline {
+.btnWa {
   display: inline-flex;
   align-items: center;
-  padding: 0.78rem 1.85rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  gap: 0.5rem;
+  padding: 0.78rem 1.55rem;
+  background: #25d366;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.92rem;
   border-radius: 0.55rem;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(6px);
-  transition: background 0.2s, border-color 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.13);
-    border-color: rgba(255, 255, 255, 0.5);
+    opacity: 0.88;
+    transform: translateY(-2px);
   }
 }
 
 // ── Image column ─────────────────────────────────────────────────────────────
 .imageCol {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  // Hidden on mobile to keep hero compact
   display: none;
-
-  @media (min-width: $breakpoint-lg) {
-    display: flex;
-  }
 }
 
 .welcomeBadge {
@@ -329,6 +328,20 @@ $green-dk:  #1a7d44;
 .statChipLeft  { bottom: 2rem; left: 0; }
 .statChipRight { top: 3rem; right: 2rem; }
 
+// ── Scroll indicator ─────────────────────────────────────────────────────────
+.scrollIndicator {
+  position: absolute;
+  bottom: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: none;
+
+  @media (min-width: $breakpoint-md) {
+    display: block;
+  }
+}
+
 // ── Feature benefit cards ─────────────────────────────────────────────────────
 .cards {
   position: relative;
@@ -362,44 +375,52 @@ $green-dk:  #1a7d44;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1.1rem 1.35rem;
+  padding: 1.1rem 1.3rem;
   background: #ffffff;
-  border-radius: 0.85rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  transition: transform 0.2s;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 21px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
     transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
   }
 }
 
-.cardIcon {
+.cardBadge {
   flex-shrink: 0;
-  width: 2.8rem;
-  height: 2.8rem;
-  background: linear-gradient(160deg, $green 0%, $green-dk 100%);
-  border-radius: 50%;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  img {
-    filter: brightness(0) invert(1);
-    width: 1.3rem;
-    height: 1.3rem;
-  }
+.cardBadgeBg {
+  object-fit: contain;
+}
+
+.cardBadgeIcon {
+  position: relative;
+  z-index: 1;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
 }
 
 .cardTitle {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #1a2110;
-  margin: 0 0 0.18rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 0.2rem;
+  line-height: 1.35;
 }
 
 .cardSub {
-  font-size: 0.75rem;
-  color: #6b7280;
+  font-size: 0.8rem;
+  color: #444;
   margin: 0;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 1.4;
 }

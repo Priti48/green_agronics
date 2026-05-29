@@ -110,14 +110,32 @@ src/
 ## 9. CURRENT CONTEXT
 
 ### Recently Completed
-- Created AGENTS.md as single source of truth
-- Rebuilt Navbar with full mobile-first architecture (sticky, accessible, shop accordion)
+- Major enterprise upgrade: premium SEO-optimized export business website
+- Lenis smooth-scroll provider (`src/components/providers/LenisProvider.tsx`)
+- Navbar: export-focused links, WhatsApp + Enquiry CTA
+- Hero: GSAP cinematic reveal, export headings, WhatsApp CTA, scroll indicator
+- StatsCounter: GSAP animated counters (12k+, 50+, 4.8★, 6+, 100%)
+- WhyTrustUs: 8 export trust point cards
+- ExportCountries: 50+ country flags grid with region stats
+- ProductsShowcase: IP-based dynamic currency pricing (INR/USD/AED/GBP/EUR)
+- PrivateLabel: packaging options + 4-step process timeline
+- GoogleReviews: premium carousel with 6 verified reviews
+- IndustriesServed: 6 industry cards
+- Chatbot: floating FAQ bot with WhatsApp fallback (`src/components/ui/Chatbot/`)
+- StickyCTA: desktop sidebar + mobile action bar (`src/components/ui/StickyCTA/`)
+- /api/enquiry: Nodemailer route with input sanitization
+- Footer: full 4-column dark footer
+- layout.tsx: Lenis, JSON-LD schemas, GA4, GTM
+- page.tsx: 15-section export-focused homepage
+- robots.txt created, sitemap upgraded
+- Build: ✅ passes with zero errors
 
 ### Current Focus
-- Navbar complete — mobile-first responsive, sticky, with animated mobile menu
+- All enterprise sections complete, build verified
 
 ### Next Steps
-- Continue with remaining section/page components as needed
+- Set environment variables in Vercel: SMTP_HOST, SMTP_USER, SMTP_PASS, ENQUIRY_TO_EMAIL, NEXT_PUBLIC_GA_MEASUREMENT_ID, NEXT_PUBLIC_GTM_ID
+- Deploy to Vercel
 
 ---
 
@@ -125,28 +143,54 @@ src/
 
 - [x] Analyze project structure
 - [x] Document architecture in AGENTS.md
-- [ ] Run lint verification
-- [ ] Run typecheck verification
+- [x] Enterprise upgrade — all 18 tasks complete
+- [x] Build verification ✅
 
 ---
 
 ## 11. COMPONENT MAP
+
+### Providers
+- `src/components/providers/LenisProvider.tsx` - Lenis smooth-scroll wrapper
 
 ### UI Components
 - `src/components/ui/Button/` - Button with variants
 - `src/components/ui/Container/` - Layout container
 - `src/components/ui/Heading/` - Heading with levels
 - `src/components/ui/Section/` - Section wrapper
+- `src/components/ui/Chatbot/` - Floating FAQ chatbot with WhatsApp fallback
+- `src/components/ui/StickyCTA/` - Desktop sidebar + mobile bottom action bar
 
 ### Layout Components
-- `src/components/layout/Navbar/` - Navigation bar
-- `src/components/layout/Footer/` - Footer
+- `src/components/layout/Navbar/` - Sticky navbar with export links + Enquiry CTA
+- `src/components/layout/Footer/` - 4-column dark footer with certifications
+
+### Home Components
+- `src/components/home/Hero.tsx` - Export-focused hero with GSAP animations
 
 ### Section Components
-- `src/components/sections/Hero/` - Hero section with CTA
-- `src/components/sections/ProductGrid/` - Product grid display
-- `src/components/sections/Testimonials/` - Testimonials
-- `src/components/sections/ExportProcess/` - Export process
+- `src/components/sections/StatsCounter/` - GSAP animated counters
+- `src/components/sections/WhyTrustUs/` - 8 export trust point cards
+- `src/components/sections/ExportCountries/` - 50+ country flags grid
+- `src/components/sections/ProductsShowcase/` - Products with IP-based currency pricing
+- `src/components/sections/PrivateLabel/` - OEM/private label info + process timeline
+- `src/components/sections/GoogleReviews/` - Premium review carousel
+- `src/components/sections/IndustriesServed/` - 6 industry cards
+- `src/components/sections/ProductCategories/` - 3 category cards + B2B strip
+- `src/components/sections/AboutSection/` - 2-col about + certifications
+- `src/components/sections/FeaturedProducts/` - 4 product cards with star rating
+- `src/components/sections/ProductRange/` - Dark green 6-category grid
+- `src/components/sections/WholesaleSection/` - B2B wholesale + stats
+- `src/components/sections/Testimonials/` - Rating bar + 3 review cards
+- `src/components/sections/TrustBar/` - 4 cert logos + stats
+
+### API Routes
+- `src/app/api/enquiry/route.ts` - Nodemailer enquiry form handler
+
+### Lib Utilities
+- `src/lib/seo.ts` - buildMetadata + 6 JSON-LD schema builders
+- `src/lib/currency.ts` - IP-based currency detection + price conversion
+- `src/lib/analytics.ts` - GA4 event tracking
 
 ### Form Components
 - `src/components/forms/RFQForm/` - Request for Quote form

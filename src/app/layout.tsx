@@ -1,50 +1,55 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, organizationSchema, localBusinessSchema } from "@/lib/seo";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LenisProvider } from "@/components/providers/LenisProvider";
+import { Chatbot } from "@/components/ui/Chatbot";
+import { StickyCTA } from "@/components/ui/StickyCTA";
 import "@/styles/globals.scss";
 
-export const metadata: Metadata = {
-  title: "Buy Organic Makhana Online | Premium Fox Nuts Direct From Farmers",
-  description:
-    "Premium organic makhana (fox nuts) delivered fresh across India. No middlemen, lab-tested, 4.8★ rating. Free delivery on orders. Buy now!",
-  keywords: [
-    "buy organic makhana online",
-    "fox nuts healthy snack",
-    "makhana online shopping",
-    "organic fox nuts India",
-    "healthy snacks delivery",
-  ],
-  openGraph: {
-    title: "Premium Organic Makhana Direct From Farmers",
-    description: "No middlemen • Lab tested • Delivered fresh across India",
-    url: "https://greenagaronics.com",
-    siteName: "Green Agaronics",
-    images: [
-      {
-        url: "https://greenagaronics.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Premium Organic Makhana",
-      },
-    ],
-    type: "website",
-  },
-  robots: "index, follow",
-};
+export const metadata: Metadata = buildMetadata();
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gaId  = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
+  const orgSchema = JSON.stringify(organizationSchema());
+  const bizSchema = JSON.stringify(localBusinessSchema());
 
   return (
     <html lang="en">
       <head>
-        {/* GA4 Script */}
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: orgSchema }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: bizSchema }}
+        />
+
+        {/* GTM <head> snippet */}
+        {gtmId && (
+          <Script
+            id="gtm-head"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmId}');`,
+            }}
+          />
+        )}
+
+        {/* GA4 */}
         {gaId && (
           <>
             <Script
@@ -55,25 +60,33 @@ export default function RootLayout({
               id="gtag-init"
               strategy="afterInteractive"
               dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${gaId}', {
-                    page_path: window.location.pathname,
-                  });
-                `,
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}',{page_path:window.location.pathname});`,
               }}
             />
           </>
         )}
       </head>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {/* GTM <body> noscript fallback */}
+        {gtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
+
+        <LenisProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <Chatbot />
+          <StickyCTA />
+        </LenisProvider>
       </body>
     </html>
   );
 }
-
