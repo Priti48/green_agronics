@@ -13,7 +13,7 @@ export interface WhatsAppPrefillParams {
 
 /**
  * Builds a WhatsApp URL with pre-filled message
- * Phone number should be in international format without + (e.g., 919876543210)
+ * Phone number should be in international format without + (e.g., 918178874181)
  */
 export function buildWhatsAppUrl({
   phone = DEFAULT_PHONE,

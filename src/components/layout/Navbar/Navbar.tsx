@@ -151,7 +151,7 @@ export function Navbar() {
           <div className={styles.right}>
             {/* WhatsApp — hidden on mobile, shown ≥ md */}
             <a
-              href="https://wa.me/919876543210?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
+              href="https://wa.me/918178874181?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               className={styles.waBtn}
@@ -227,7 +227,7 @@ export function Navbar() {
           {/* WhatsApp CTA */}
           <li className={styles.mobileCtaRow}>
             <a
-              href="https://wa.me/919876543210?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
+              href="https://wa.me/918178874181?text=Hello%2C%20I%20am%20interested%20in%20bulk%20export%20of%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               className={styles.mobileWa}
